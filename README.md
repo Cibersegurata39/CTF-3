@@ -11,13 +11,13 @@
 
 ## Objetivo
 
-Explicar la realización del siguiente _Capture the flag_ dentro del mundo educativo. Se preteneden conseguir dos archivos (_flags_), el cual se encuentra dentro del entorno del usuario básico. Para ello, se deberá penetrar en la máquina, y pasar al usuario básico. En otro repositorio se explicará como a aprtir d esta maquina se podra pivotar hacia otra máquina.
+Explicar la realización del siguiente _Capture the flag_ dentro del mundo educativo. Se pretende conseguir un archivo (_flags_), el cual se encuentra dentro del entorno del usuario básico. Para ello, se deberá penetrar en la máquina mediante una inyección SQL. En otro repositorio se explicará como a partir de esta maquina se podrá pivotar hacia otra máquina.
 
 ## Que hemos aprendido?
 
 - Realizar fingerprinting y enumeración de puertos y enumeración web (mediante *Dirbuster*).
-- Interctuar con formularios
-- Inyecciones SQL
+- Interactuar con formularios.
+- Realizar inyecciones SQL.
 
 ## Herramientas utilizadas
 
