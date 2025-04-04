@@ -4,13 +4,9 @@
   <img src="https://img.shields.io/badge/-Kali-5e8ca8?style=for-the-badge&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/-Nmap-6933FF?style=for-the-badge&logo=nmap&logoColor=white" />
   <img src="https://img.shields.io/badge/-Dirbuster-005571?style=for-the-badge&logo=dirbuster&logoColor=white" />
-  bash
-  inyeccion sql
-  SQLMap
-  <img src="https://img.shields.io/badge/-Metasploit-2596CD?style=for-the-badge&logo=metasploit&logoColor=white" />
-  <img src="https://img.shields.io/badge/-python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/-steghide-FF5200?style=for-the-badge&logo=steghide&logoColor=white" />
-  <img src="https://img.shields.io/badge/-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQL-FF880F?style=for-the-badge&logo=sql&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLmap-2379F4?style=for-the-badge&logo=sqlmap&logoColor=white" />
 </div>
 
 ## Objetivo
@@ -45,7 +41,8 @@ Al acceder a la URL 10.0.2.15:5000 desde el navegador, doy con un mensaje, el cu
 
 Para la enumeracion web, se utiliza la herramienta **Dirbuster**, centrando la búsqueda en las extensiones *html, php, bak y tgz*. No se ha encontrado ningún directorio, pero sí el archivo 'backup.php'.
 
-![image](https://github.com/user-attachments/assets/67b5cf8f-9679-4f43-953e-129bca666be0)
+![image](https://github.com/user-attachments/assets/cd8a7014-face-46af-b355-05ad18ae3398)
+
 
 ### Vulnerabilidades explotadas
 
