@@ -42,9 +42,25 @@ Para la enumeracion web, se utiliza la herramienta **Dirbuster**, centrando la b
 
 ![image](https://github.com/user-attachments/assets/67b5cf8f-9679-4f43-953e-129bca666be0)
 
-
-
 ### Vulnerabilidades explotadas
+
+Al acceder a la dirección 10.0.2.15:5000/backup.php, encuentro un formulario POST. Este nos pregunta si queremos saber su identidad y nos pide dos números para sumar. Al rellenarlo nos devuelve el resultado y nos desvela el usuario ‘www-data’, por lo que cabe esperar que el servidor sea Apache o incluso Nginx. Si contestamos que no queremos saber la identidad, se muestra un mensaje distinto.
+
+![image](https://github.com/user-attachments/assets/1698f1fc-7adf-4fa3-8a44-0e847bd90ea1)
+
+Es interesante jugar con el formulario para ver que respeustas se obtienen, como dejar los números en blanco, utilizar valores negativos o introducir la clásica sentencia de “’or 1=1” pero no lo interpreta de la manera esperada. De hecho cada vez que se indica un espacio, ya no sabe interpretar lo escrito. Probando comandos como <code>ls</code>, <code>pwd</code>… se obtienen un resultado positivo cuando estos comandos han sido introducidos entre ‘;’, provocando una concatenación de comandos. Así pues, para conocer en que directorio me encuentro y qué contiene, se utiliza la siguiente sentencia dentro del comando ‘Numero 1’.
+
+<code>;pwd;ls;</code>
+
+![image](https://github.com/user-attachments/assets/b5bbc945-8dff-4822-9160-d3baa35a00e3)
+
+Entre los archivos que devuelve el comando se puede ver 'password.php'. Para leer su contenido sólo ha sido necesario utilizar el comando <code>;cat password.php</code> dentro del formulario. Este archivo contiene el código *php* de la lógica del formulario anterior y además, un nuevo formulario GET. Si  se rellena este formuario con posible IDs, se obtienen las siguientes frase.
+|ID|Respuesta|
+|--|---------|
+|0 |no hay mal que por bien no venga|
+|1 |luchando contra la adversidad|
+|2 |hasta el infinito y mas alla|
+|3 |Esto es un TFM con Rock'n'Roll|
 
 
 **Flag: **
