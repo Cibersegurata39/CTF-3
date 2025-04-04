@@ -4,6 +4,9 @@
   <img src="https://img.shields.io/badge/-Kali-5e8ca8?style=for-the-badge&logo=kalilinux&logoColor=white" />
   <img src="https://img.shields.io/badge/-Nmap-6933FF?style=for-the-badge&logo=nmap&logoColor=white" />
   <img src="https://img.shields.io/badge/-Dirbuster-005571?style=for-the-badge&logo=dirbuster&logoColor=white" />
+  bash
+  inyeccion sql
+  SQLMap
   <img src="https://img.shields.io/badge/-Metasploit-2596CD?style=for-the-badge&logo=metasploit&logoColor=white" />
   <img src="https://img.shields.io/badge/-python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/-steghide-FF5200?style=for-the-badge&logo=steghide&logoColor=white" />
@@ -17,12 +20,14 @@ Explicar la realización del siguiente _Capture the flag_ dentro del mundo educa
 ## Que hemos aprendido?
 
 - Realizar fingerprinting y enumeración de puertos y enumeración web (mediante *Dirbuster*).
+- Interctuar con formularios
+- Inyecciones SQL
 
 ## Herramientas utilizadas
 
 - *Kali Linux*.
 - Enumeración: *Nmap*, *Dirbuster*.
-- Penetración: **. 
+- Penetración: *Bash*, *SQLMap*. 
 
 ## Steps
 
@@ -62,6 +67,9 @@ Entre los archivos que devuelve el comando se puede ver 'password.php'. Para lee
 |2 |hasta el infinito y mas alla|
 |3 |Esto es un TFM con Rock'n'Roll|
 
+Utilizando la sentencia <code>1’ or ‘1’ = ‘1</code> consigo comprobar que es vulnerable a inyecciones SQL, pues me devuelve todas las frases contenidas en la tabla ‘frases’.
+
+![image](https://github.com/user-attachments/assets/409b3355-1c53-4ac5-b877-bbde24a2740a)
 
 **Flag: **
 
