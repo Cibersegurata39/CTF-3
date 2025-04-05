@@ -94,6 +94,6 @@ Ya sólo queda recuperar el contenido de la tabla indicando los campos con ‘-C
 
 ![image](https://github.com/user-attachments/assets/372113d8-4b27-42fb-8442-f82d53b7b273)
 
-Dentro del campo ‘flag_value’ se encuentra la bandera.
+Dentro del campo ‘*flag_value*’ se encuentra la bandera.
 
 **Flag: 003d873449f8e8ff13b72f2061bfbaa4e5a84b82**
