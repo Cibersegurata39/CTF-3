@@ -29,7 +29,7 @@ Explicar la realización del siguiente _Capture the flag_ dentro del mundo educa
 
 ### Enumeración y fingerprinting
 
-La máquina a vulnerar está desplegada dentro de un *Docker*, en este caso se encuentra corriendo en uno de nuestros puertos. Así pues, **nmap** es lanzado con la IP destino de la máquina anfitriona para buscar en que puerto está corriendo la máquina víctima. Como resultado se descubre el puerto 5000 donde corre un servicio *upnp*, donse se encuentra la máquina.
+La máquina a vulnerar está desplegada dentro de un *Docker*, en este caso se encuentra corriendo en uno de nuestros puertos. Así pues, **nmap** es lanzado con la IP destino de la máquina anfitriona para buscar en qué puerto está corriendo la máquina víctima. Como resultado se descubre el puerto 5000 en el que corre un servicio *upnp*, donde se encuentra la máquina.
 
 <code>nmap -p- -Pn -sV 10.0.2.15</code>
 
