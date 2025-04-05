@@ -35,7 +35,7 @@ La máquina a vulnerar está desplegada dentro de un *Docker*, en este caso se e
 
 ![image](https://github.com/user-attachments/assets/614d71a1-2cb7-416e-b7f6-879e8eef422a)
 
-Al acceder a la URL 10.0.2.15:5000 desde el navegador, doy con un mensaje, el cual da a entender que encontraré varias vulnerabilidades por el camino.
+Al acceder a la URL 10.0.2.15:5000 desde el navegador se muestra un mensaje, el cual da a entender que se encontrarán varias vulnerabilidades por el camino.
 
 ![image](https://github.com/user-attachments/assets/14705a54-0122-4f9b-a335-591be1bc76d4)
 
@@ -46,17 +46,18 @@ Para la enumeracion web, se utiliza la herramienta **Dirbuster**, centrando la b
 
 ### Vulnerabilidades explotadas
 
-Al acceder a la dirección 10.0.2.15:5000/backup.php, encuentro un formulario POST. Este nos pregunta si queremos saber su identidad y nos pide dos números para sumar. Al rellenarlo nos devuelve el resultado y nos desvela el usuario ‘www-data’, por lo que cabe esperar que el servidor sea Apache o incluso Nginx. Si contestamos que no queremos saber la identidad, se muestra un mensaje distinto.
+Al acceder a la dirección 10.0.2.15:5000/backup.php, aparece un formulario POST. Este nos pregunta si queremos saber su identidad y nos pide dos números para sumar. Al rellenar el formulario, nos devuelve el resultado y nos desvela el usuario ‘www-data’, por lo que cabe esperar que el servidor sea *Apache* o incluso *Nginx*. Si contestamos que no queremos saber la identidad, se muestra un mensaje distinto.
 
 ![image](https://github.com/user-attachments/assets/1698f1fc-7adf-4fa3-8a44-0e847bd90ea1)
 
-Es interesante jugar con el formulario para ver que respeustas se obtienen, como dejar los números en blanco, utilizar valores negativos o introducir la clásica sentencia de “’or 1=1” pero no lo interpreta de la manera esperada. De hecho cada vez que se indica un espacio, ya no sabe interpretar lo escrito. Probando comandos como <code>ls</code>, <code>pwd</code>… se obtienen un resultado positivo cuando estos comandos han sido introducidos entre ‘;’, provocando una concatenación de comandos. Así pues, para conocer en que directorio me encuentro y qué contiene, se utiliza la siguiente sentencia dentro del comando ‘Numero 1’.
+Es interesante jugar con el formulario para ver que respuestas se obtienen, como dejar los números en blanco, utilizar valores negativos o introducir la clásica sentencia de “’or 1=1”, aunque esta no la interpreta de la manera esperada. De hecho cada vez que se indica un espacio, ya no sabe interpretar lo escrito. Probando comandos como <code>ls</code>, <code>pwd</code>… se obtiene un resultado positivo, cuando estos han sido introducidos entre ‘;’, provocando una concatenación de comandos. Así pues, para conocer en qué directorio me encuentro y qué contiene, se utiliza la siguiente sentencia dentro del campo ‘Número 1’.
 
 <code>;pwd;ls;</code>
 
 ![image](https://github.com/user-attachments/assets/b5bbc945-8dff-4822-9160-d3baa35a00e3)
 
-Entre los archivos que devuelve el comando se puede ver 'password.php'. Para leer su contenido sólo ha sido necesario utilizar el comando <code>;cat password.php</code> dentro del formulario. Este archivo contiene el código *php* de la lógica del formulario anterior y además, un nuevo formulario GET. Si  se rellena este formuario con posible IDs, se obtienen las siguientes frase.
+Entre los archivos que devuelve el comando introducido se puede ver 'password.php'. Para leer su contenido sólo ha sido necesario utilizar el comando <code>;cat password.php</code> dentro del formulario. Este archivo contiene el código *php* de la lógica del formulario anterior y además, un nuevo formulario GET. Si se rellena este formuario con diferentes IDs, se obtienen las siguientes frase.
+
 |ID|Respuesta|
 |--|---------|
 |0 |no hay mal que por bien no venga|
@@ -64,11 +65,11 @@ Entre los archivos que devuelve el comando se puede ver 'password.php'. Para lee
 |2 |hasta el infinito y mas alla|
 |3 |Esto es un TFM con Rock'n'Roll|
 
-Utilizando la sentencia <code>1’ or ‘1’ = ‘1</code> consigo comprobar que es vulnerable a inyecciones SQL, pues me devuelve todas las frases contenidas en la tabla ‘frases’.
+Utilizando la sentencia <code>’ or ‘1’ = ‘1</code> consigo comprobar que es vulnerable a inyecciones SQL, pues me devuelve todas las frases contenidas en la tabla ‘frases’.
 
 ![image](https://github.com/user-attachments/assets/409b3355-1c53-4ac5-b877-bbde24a2740a)
 
-Demostrado esto, se hace uso de la herramienta **SQLMap** para buscar que tablas contiene la base de datos y encontrar posible información que sea útil en la búsqueda de la flag.
+Demostrado esto, se hace uso de la herramienta **SQLMap** para buscar qué tablas contiene la base de datos y encontrar posible información que sea útil en la búsqueda de la flag.
 Se parte de la URL http://10.0.2.15:5000/password.php?id=1 (esta es la dirección a la que se llega cuando indicas en el formulario el ID 1) y se le pasa el parámetro ‘--dbs’ para encontrar las bases de datos contenidas. El parámetro ‘--batch’ se utiliza para que durante la ejecución no esté preguntando por los siguientes pasos a realizar.
 
 <code>sqlmap -u "http://10.0.2.15:5000/password.php?id=1" --dbs --batch</code>
